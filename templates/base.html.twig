@@ -16,7 +16,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background: #e3f2fd">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="{{ asset('logo-GSB.jpg') }}" alt="Logo_GSB" width="60" height="40">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Mes Fiches</a>
                     </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">login</a>
+                        <a class="nav-link" href="/logout">logout</a>
                     </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">login</a>
+                            </li>
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="/user">User</a>
                     </li>
+                    {% endif %}
+                    {% endif %}
 
                 </ul>
             </div>
