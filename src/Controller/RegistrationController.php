@@ -27,6 +27,7 @@ class RegistrationController extends AbstractController
         $user->setCp("74000");
         $user->setAdresse("30 route du Fiere");
         $user->setDateEmbauche(new \DateTime(2001 ));
+        $user->setOldId("0");
 
 
         $hashedPassword = $passwordHasher->hashPassword(

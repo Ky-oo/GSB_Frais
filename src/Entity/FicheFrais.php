@@ -25,9 +25,6 @@ class FicheFrais
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $montantValid = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateModif = null;
-
     #[ORM\ManyToOne(inversedBy: 'ficheFrais')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
@@ -41,6 +38,9 @@ class FicheFrais
 
     #[ORM\OneToMany(mappedBy: 'ficheFrais', targetEntity: LigneFraisForfait::class, orphanRemoval: true)]
     private Collection $ligneFraisForfait;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateModif = null;
 
     public function __construct()
     {
@@ -85,18 +85,6 @@ class FicheFrais
     public function setMontantValid(string $montantValid): static
     {
         $this->montantValid = $montantValid;
-
-        return $this;
-    }
-
-    public function getDateModif(): ?\DateTimeInterface
-    {
-        return $this->dateModif;
-    }
-
-    public function setDateModif(\DateTimeInterface $dateModif): static
-    {
-        $this->dateModif = $dateModif;
 
         return $this;
     }
@@ -181,6 +169,18 @@ class FicheFrais
                 $ligneFraisForfait->setFicheFrais(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateModif(): ?\DateTimeInterface
+    {
+        return $this->dateModif;
+    }
+
+    public function setDateModif(\DateTimeInterface $dateModif): static
+    {
+        $this->dateModif = $dateModif;
 
         return $this;
     }

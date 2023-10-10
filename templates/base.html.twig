@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background: #e3f2fd">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img src="{{ asset('logo-GSB.jpg') }}" alt="Logo_GSB" width="60" height="40">
+
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,7 +28,7 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Saisie Fiche</a>
@@ -40,16 +40,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">logout</a>
                     </li>
+                        <li class="nav-item">
+                            <b><a class="nav-link">Utilisateur: {{ app.user.prenom }}</a></b>
+                        </li>
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="/login">login</a>
                             </li>
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/user">User</a>
                     </li>
-                    {% endif %}
-                    {% endif %}
+
+
+
 
                 </ul>
             </div>
