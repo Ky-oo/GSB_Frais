@@ -1,8 +1,4 @@
 [
-{"type":"header","version":"5.2.1","comment":"Export to JSON plugin for PHPMyAdmin"},
-{"type":"database","name":"gsb_frais"},
-{"type":"table","name":"lignefraisforfait","database":"gsb_frais","data":
-[
 {"idVisiteur":"a131","mois":"202301","idFraisForfait":"ETP","quantite":"8"},
 {"idVisiteur":"a131","mois":"202301","idFraisForfait":"KM","quantite":"525"},
 {"idVisiteur":"a131","mois":"202301","idFraisForfait":"NUI","quantite":"6"},
@@ -872,5 +868,4 @@
 {"idVisiteur":"f4","mois":"202308","idFraisForfait":"NUI","quantite":"4"},
 {"idVisiteur":"f4","mois":"202308","idFraisForfait":"REP","quantite":"8"}
 ]
-}
-]
+
