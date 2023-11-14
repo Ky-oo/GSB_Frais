@@ -103,3 +103,9 @@ Q
 ,templates/ligne_frais_forfait/show.html.twig,d\c\dc029d5a0d11b74c1c393dd4b4d5fd0063e16c81
 T
 $migrations/Version20230927073940.php,0\3\03dc8c96d20f681260154aee4b14b86bbdd46cb5
+Q
+!src/Controller/UserController.php,8\7\87b99206717ccce222f05190f36b6273e3ea6228
+R
+"src/Controller/LoginController.php,3\7\3752fbffcbb946366b35fcaa7e54210c60429249
+C
+src/Entity/User.php,0\a\0a3e99b9da178509aeb5b3fa6f5dce46bc0eb8be

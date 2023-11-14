@@ -10,12 +10,7 @@
 
     <div class="example-wrapper">
         <h1> Vos fiches de frais</h1>
-
-        <form action= {{ path('app_mes_fiches') }} method="GET">
-            <label for="dateFiche">Choisissez le mois et l'année de la fiche à afficher</label><br>
-            <input type="month" id="dateFiche" name="dateFicheFrais" value="2023-07"/>
-            <input type="submit" value="Voir la fiche"/>
-        </form>
+        {{ include('mes_fiches/_form.html.twig') }}
     </div>
 
     <hr>
@@ -29,7 +24,7 @@
                 <td>{{ ficheDate.getId() }}</td>
             </tr>
             <tr>
-                <th>État ID</th>
+                <th>État</th>
                 <td>{{ ficheDate.getEtat().getLibelle }}</td>
             </tr>
             <tr>
