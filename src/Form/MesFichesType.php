@@ -15,17 +15,7 @@ class MesFichesType extends AbstractType
         $builder
             ->add('listMois', ChoiceType::class, ['choices' => $options['allFiches'],
                 'choice_label'=> function(FicheFrais $ficheFrais) { String:
-                    $mois = $ficheFrais->getMois();
-
-                    $date = \DateTime::createFromFormat('F Y', $mois);
-                    setlocale(LC_TIME, 'fr_FR');
-
-                    // Obtenez le mois formaté en français
-                    $moisEnFrancais = strftime('%B %Y', $date->getTimestamp());
-
-
                     return $ficheFrais->getMois();
-
             }]);
     }
 
