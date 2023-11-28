@@ -9,11 +9,11 @@
     </style>
 
     <div class="example-wrapper">
-        <h1> Vos fiches de frais</h1>
+        <center><h1> Vos fiches de frais</h1></center>
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Voir la fiche"/>
+        <input type="submit" value="Voir la fiche"  class="btn btn-primary"/>
         {{ form_end(form) }}
 
     </div>
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                     <th>Montant Validé</th>
-                    <td>{{ ficheDate.getMontantValid() }}</td>
+                    <td>{{ ficheDate.getMontantValid() }} €</td>
                 </tr>
                 <tr>
                     <th>Date de Modification</th>
@@ -78,6 +78,27 @@
                         <th><center>{{ totalRepas }}</center></th>
                     </tr>
                 </tbody>
+            </table>
+            <br>
+            <h2>Vos fraits hors forfait</h2>
+            <br>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Libelle</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                </tr>
+
+
+                    {% for fraisHorsForfait in ficheDate.getLigneFraisHorsForfait() %}
+                <tr>
+                    <td>{{fraisHorsForfait.getLibelle()}}</td>
+                    <td>{{fraisHorsForfait.getMontant()}} €</td>
+                    <td>{{fraisHorsForfait.getDateString()}}</td>
+                </tr>
+
+                    {%endfor %}
             </table>
 
         {% else %}
