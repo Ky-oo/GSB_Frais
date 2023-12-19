@@ -184,4 +184,43 @@ class FicheFrais
 
         return $this;
     }
+
+    public function montantAllFicheFraisByUSer(): int
+    {
+        $allLigneForfait = $this->ligneFraisForfait;
+        $allLigneForfaitByUser = new ArrayCollection();
+        $montant = 0;
+
+        foreach ($allLigneForfait as $fiche) {
+            if($fiche->getFicheFrais()->getUser()->getId() == $this->getUser()->getId()){
+                $allLigneForfaitByUser->add($fiche);
+            }
+        }
+
+        foreach ($allLigneForfaitByUser as $ligneForfaitUser){
+                $montant += $ligneForfaitUser->getQuantite() * $ligneForfaitUser->getFraisForfait()->getMontant();
+
+        }
+
+        return $montant;
+    }
+
+    public function montantAllFicheFraisHorsForfaitByUSer(): int
+    {
+        $allLigneHorsForfait = $this->getLigneFraisHorsForfait();
+        $allLigneHorsForfaitByUser = new ArrayCollection();
+        $montant = 0;
+
+        foreach ($allLigneHorsForfait as $fiche) {
+            if($fiche->getFicheFrais()->getUser()->getId() == $this->getUser()->getId()){
+                $allLigneHorsForfaitByUser->add($fiche);
+            }
+        }
+
+        foreach ($allLigneHorsForfaitByUser as $ligneHorsForfaitUser){
+            $montant += $ligneHorsForfaitUser->getMontant();
+        }
+
+        return $montant;
+    }
 }

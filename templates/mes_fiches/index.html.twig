@@ -79,6 +79,7 @@
                     </tr>
                 </tbody>
             </table>
+            <h3>Total: {{ ficheDate.montantAllFicheFraisByUSer() }} €</h3>
             <br>
             <h2>Vos fraits hors forfait</h2>
             <br>
@@ -100,6 +101,7 @@
 
                     {%endfor %}
             </table>
+            <h3>Total: {{ ficheDate.montantAllFicheFraisHorsForfaitByUSer() }} €</h3>
 
         {% else %}
             <h1 style="color: red;">Aucune fiches trouvées</h1>
