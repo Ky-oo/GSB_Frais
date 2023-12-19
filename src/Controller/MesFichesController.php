@@ -19,9 +19,10 @@ class MesFichesController extends AbstractController
     {
         $user = $this->getUser();
         $allFiches = $ficheFraisRepository->findBy(["user" => $user]);
-        $form = $this->createForm(MesFichesType::class, null, ['allFiches' => $allFiches    ]);
-
+        $form = $this->createForm(MesFichesType::class, null, ['allFiches' => $allFiches]);
         $form->handleRequest($request);
+
+
         $ficheDate = null;
 
 

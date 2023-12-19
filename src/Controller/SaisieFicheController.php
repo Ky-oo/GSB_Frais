@@ -10,7 +10,9 @@ use App\Form\LigneFraisForfaitType;
 use App\Form\LigneFraisHorsForfaitType;
 use App\Form\MesFichesType;
 use App\Form\SaisieFicheType;
+use App\Repository\EtatRepository;
 use App\Repository\FicheFraisRepository;
+use App\Repository\FraisForfaitRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,51 +24,89 @@ use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 class SaisieFicheController extends AbstractController
 {
     #[Route('/saisie/fiche', name: 'app_saisie_fiche')]
-    public function index(FicheFraisRepository $ficheFraisRepository, EntityManagerInterface $entityManager, Request $request): Response
+    public function index(FicheFraisRepository $ficheFraisRepository, EntityManagerInterface $entityManager, Request $request, EtatRepository $etatRepository, FraisForfaitRepository $forfaitRepository): Response
     {
 
-        $allFiches = $ficheFraisRepository->findAll();
-
         $dateActuel = new \DateTime('now');
-        $moisEnCours = $dateActuel->format('Y-m');
+        $moisEnCours = $dateActuel->format('F Y');
+        $ficheMoisUser = $ficheFraisRepository->findOneBy(['user'=>$this->getUser(), 'mois'=>$moisEnCours]);
 
-        $actualFiche = null;
+        $actualLigneHorsForfait = new LigneFraisHorsForfait();
 
-        foreach ($allFiches as $fiche) {
-            if ($fiche->getMois() === $moisEnCours) {
-                if ($actualFiche === null || $fiche->getDateModif() > $actualFiche->getDateModif()) {
-                    $actualFiche = $fiche;
-                    dd($actualFiche);
+        $formForfait = $this->createForm(LigneFraisForfaitType::class);
+        $formHorsForfait = $this->createForm(LigneFraisHorsForfaitType::class, $actualLigneHorsForfait);
+        $formForfait->handleRequest($request);
+        $formHorsForfait->handleRequest($request);
+
+        if ($ficheMoisUser === null) {
+            $actualFiche = new FicheFrais();
+            $actualLigneForfaitKM = new LigneFraisForfait();
+            $actualLigneForfaitEtape = new LigneFraisForfait();
+            $actualLigneForfaitNuitee = new LigneFraisForfait();
+            $actualLigneForfaitRepas = new LigneFraisForfait();
+
+            $actualLigneForfaitKM->setFicheFrais($actualFiche);
+            $actualLigneForfaitEtape->setFicheFrais($actualFiche);
+            $actualLigneForfaitNuitee->setFicheFrais($actualFiche);
+            $actualLigneForfaitRepas->setFicheFrais($actualFiche);
+
+            $actualLigneForfaitRepas->setQuantite(0);
+            $actualLigneForfaitKM->setQuantite(0);
+            $actualLigneForfaitNuitee->setQuantite(0);
+            $actualLigneForfaitEtape->setQuantite(0);
+
+            $actualLigneForfaitKM->setFraisForfait($forfaitRepository->findOneBy(['id' => 1]));
+            $actualLigneForfaitEtape->setFraisForfait($forfaitRepository->findOneBy(['id' => 2]));
+            $actualLigneForfaitNuitee->setFraisForfait($forfaitRepository->findOneBy(['id' => 3]));
+            $actualLigneForfaitRepas->setFraisForfait($forfaitRepository->findOneBy(['id' => 4]));
+
+            $actualFiche->setMois($moisEnCours);
+            $actualFiche->setEtat($etatRepository->findOneBy(['id' => 1]));
+            $actualFiche->setUser($this->getUser());
+            $actualFiche->setNbJustificatifs(0);
+
+            $actualFiche->setMontantValid(0);
+            $actualLigneHorsForfait->setFicheFrais($actualFiche);
+            $actualFiche->setDateModif(new \DateTime('now'));
+
+            $entityManager->persist($actualFiche);
+            $entityManager->persist($actualLigneForfaitRepas);
+            $entityManager->persist($actualLigneForfaitNuitee);
+            $entityManager->persist($actualLigneForfaitEtape);
+            $entityManager->persist($actualLigneForfaitKM);
+
+            $entityManager->flush();
+        }
+
+        if ($formForfait->isSubmitted() && $formForfait->isValid()) {
+
+            $allLigne = $ficheMoisUser->getLigneFraisForfait();
+            foreach ($allLigne as $ligne) {
+
+                if ($ligne->getFraisForfait()->getId() == 1) {
+                    $ligne->setQuantite($formForfait->get('quantiteKM')->getData());
+                } else if ($ligne->getFraisForfait()->getId() == 2) {
+                    $ligne->setQuantite($formForfait->get('quantiteNuitee')->getData());
+                } else if ($ligne->getFraisForfait()->getId() == 3) {
+                    $ligne->setQuantite($formForfait->get('quantiteEtape')->getData());
+                } else {
+                    $ligne->setQuantite($formForfait->get('quantiteRepas')->getData());
                 }
             }
-        }
-
-        if ($actualFiche === null) {
-            $actualFiche = new FicheFrais();
-            $actualLigneForfait = new LigneFraisForfait();
-            $actualLigneHorsForfait = new LigneFraisHorsForfait();
-            $actualFiche->setMois($moisEnCours);
-            $actualFiche->setEtat();
-            $actualFiche->setUser($this->getUser())
-            $actualLigneHorsForfait->setFicheFrais($actualFiche);
-
-            $formForfait = $this->createForm(LigneFraisForfaitType::class);
-            $formHorsForfait = $this->createForm(LigneFraisHorsForfaitType::class);
-
-            if ($formForfait->isSubmitted() && $formForfait->isValid()) {
-                $actualLigneForfait->setFicheFrais($actualFiche);
-                dd($formForfait);
-
-
-                $entityManager->persist($actualFiche);
+                $entityManager->persist($ficheMoisUser);
                 $entityManager->flush();
             }
+
+        if ($formHorsForfait->isSubmitted() && $formHorsForfait->isValid()) {
+
+            //$entityManager->persist($ficheMoisUser);
+            //$entityManager->flush();
         }
+
 
         return $this->render('saisie_fiche/index.html.twig', [
             'controller_name' => 'SaisieFicheController',
-            'actualFiche' => $actualFiche,
-            'formSaisie' => $formSaisie,
+            'actualFiche' => $ficheMoisUser,
             'formForfait' => $formForfait,
             'formHorsForfait' => $formHorsForfait,
         ]);
