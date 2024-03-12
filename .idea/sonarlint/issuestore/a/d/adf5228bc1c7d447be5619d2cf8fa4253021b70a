@@ -1,4 +1,5 @@
 
-sphp:S116!"_Rename this field "$LigneFraisHorsForfait" to match the regular expression ^[a-z][a-zA-Z0-9]*$.(ËÃ›Š
-D	php:S1066~"/Merge this if statement with the enclosing one.(şøßß
-D	php:S1066¨"/Merge this if statement with the enclosing one.(ù®
+ php:S116!"_Rename this field "$LigneFraisHorsForfait" to match the regular expression ^[a-z][a-zA-Z0-9]*$.(ËÃ›Š8Ö·’È1J$ab885a35-edbb-41cc-994c-373256963cd9
+¨	php:S1448"fClass "FicheFrais" has 22 methods, which is greater than 20 authorized. Split it into smaller classes.(½Å¬«8Ö·’È1J$542fed31-3acb-4ec2-8bfa-4694d382f1b5
+q	php:S1066~"/Merge this if statement with the enclosing one.(şøßß8Ö·’È1J$c595f386-a6e0-48de-9455-f8113a099987
+q	php:S1066¨"/Merge this if statement with the enclosing one.(ù®8Ö·’È1J$4c8342cf-44b0-4cf0-92f4-4e4a375e313c

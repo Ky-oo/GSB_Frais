@@ -10,18 +10,6 @@
                     <div class="card-body">
                         <h1 class="card-title">Saisie Fiche (Forfait)</h1>
                         {{ form_start(formForfait, {'attr': {'class': 'form-horizontal'}}) }}
-
-                        {# Loop through each row of the formForfait and render label and widget separately #}
-                        {% for row in formForfait %}
-                            <div class="form-group row">
-                                {{ form_label(row, null, {'label_attr': {'class': 'col-lg-6 col-form-label text-right'}}) }}
-                                <div class="col-lg-6">
-                                    {{ form_widget(row, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                        <input type="submit" value="Valider la saisie" class="btn btn-primary"/>
                         {{ form_end(formForfait) }}
                     </div>
                 </div>
@@ -32,9 +20,8 @@
                         <h1 class="card-title">Saisie Fiche (Hors Forfait)</h1>
                         {{ form_start(formHorsForfait, {'attr': {'class': 'form-horizontal'}}) }}
 
-                        {# Loop through each row of the formHorsForfait and render label and widget separately #}
                         {% for row in formHorsForfait %}
-                            <div class="form-group row">
+                            <div class="form-group row mt-2">
                                 {{ form_label(row, null, {'label_attr': {'class': 'col-lg-6 col-form-label text-right'}}) }}
                                 <div class="col-lg-6">
                                     {{ form_widget(row, {'attr': {'class': 'form-control'}}) }}

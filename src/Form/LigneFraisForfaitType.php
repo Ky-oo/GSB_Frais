@@ -14,11 +14,16 @@ class LigneFraisForfaitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('quantiteKM', IntegerType::class, ["label" => 'Quantité Frais kilometrique'])
-            ->add('quantiteEtape', IntegerType::class, ["label" => 'Quantité Frais étapes'])
-            ->add('quantiteNuitee', IntegerType::class, ["label" => 'Quantité Frais nuité'])
-            ->add('quantiteRepas', IntegerType::class, ["label" => 'Quantité Frais repas'])
-            ->add('submit', SubmitType::class )
+            ->add('quantiteKM', IntegerType::class, ["label" => 'Quantité Frais kilometrique',
+                'attr' => ['class' => 'form-control']])
+            ->add('quantiteEtape', IntegerType::class, ["label" => 'Quantité Frais étapes',
+                'attr' => ['class' => 'form-control']])
+            ->add('quantiteNuitee', IntegerType::class, ["label" => 'Quantité Frais nuité',
+                'attr' => ['class' => 'form-control']])
+            ->add('quantiteRepas', IntegerType::class, ["label" => 'Quantité Frais repas',
+                'attr' => ['class' => 'form-control']])
+
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-primary mt-2']])
         ;
     }
 

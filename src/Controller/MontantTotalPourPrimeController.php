@@ -24,7 +24,7 @@ class MontantTotalPourPrimeController extends AbstractController
          }
      }
 
-     $countUser = count($userRepository->findAll())-1; //-1 pour ne pas compter le compte administrateur
+     $countUser = count($userRepository->findAll())-1;
         $prime = round(9.5 * $montant / 100, 2);
         $primeParEmployee = round($prime / $countUser, 2);
         return $this->render('montant_total_pour_prime/index.html.twig', [

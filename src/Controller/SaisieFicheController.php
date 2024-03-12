@@ -8,23 +8,25 @@ use App\Entity\LigneFraisForfait;
 use App\Entity\LigneFraisHorsForfait;
 use App\Form\LigneFraisForfaitType;
 use App\Form\LigneFraisHorsForfaitType;
-use App\Form\MesFichesType;
-use App\Form\SaisieFicheType;
 use App\Repository\EtatRepository;
 use App\Repository\FicheFraisRepository;
 use App\Repository\FraisForfaitRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 
 class SaisieFicheController extends AbstractController
 {
     #[Route('/saisie/fiche', name: 'app_saisie_fiche')]
-    public function index(FicheFraisRepository $ficheFraisRepository, EntityManagerInterface $entityManager, Request $request, EtatRepository $etatRepository, FraisForfaitRepository $forfaitRepository): Response
+    public function index(
+        FicheFraisRepository $ficheFraisRepository,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        EtatRepository $etatRepository,
+        FraisForfaitRepository $forfaitRepository
+    ): Response
     {
 
         $dateActuel = new \DateTime('now');
@@ -93,14 +95,21 @@ class SaisieFicheController extends AbstractController
                     $ligne->setQuantite($formForfait->get('quantiteRepas')->getData());
                 }
             }
-                $entityManager->persist($ficheMoisUser);
-                $entityManager->flush();
-            }
+            $entityManager->persist($ficheMoisUser);
+            $entityManager->flush();
+        }
 
         if ($formHorsForfait->isSubmitted() && $formHorsForfait->isValid()) {
 
-            //$entityManager->persist($ficheMoisUser);
-            //$entityManager->flush();
+            $ligne = new LigneFraisHorsForfait();
+
+            $ligne->setLibelle($formHorsForfait->get('libelle')->getData());
+            $ligne->setDate($formHorsForfait->get('date')->getData());
+            $ligne->setMontant($formHorsForfait->get('montant')->getData());
+            $ligne->setFicheFrais($ficheMoisUser);
+
+            $entityManager->persist($ficheMoisUser);
+            $entityManager->flush();
         }
 
 
