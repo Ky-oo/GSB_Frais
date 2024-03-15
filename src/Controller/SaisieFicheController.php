@@ -87,9 +87,9 @@ class SaisieFicheController extends AbstractController
 
                 if ($ligne->getFraisForfait()->getId() == 1) {
                     $ligne->setQuantite($formForfait->get('quantiteKM')->getData());
-                } else if ($ligne->getFraisForfait()->getId() == 2) {
+                } elseif ($ligne->getFraisForfait()->getId() == 2) {
                     $ligne->setQuantite($formForfait->get('quantiteNuitee')->getData());
-                } else if ($ligne->getFraisForfait()->getId() == 3) {
+                } elseif ($ligne->getFraisForfait()->getId() == 3) {
                     $ligne->setQuantite($formForfait->get('quantiteEtape')->getData());
                 } else {
                     $ligne->setQuantite($formForfait->get('quantiteRepas')->getData());
@@ -108,7 +108,7 @@ class SaisieFicheController extends AbstractController
             $ligne->setMontant($formHorsForfait->get('montant')->getData());
             $ligne->setFicheFrais($ficheMoisUser);
 
-            $entityManager->persist($ficheMoisUser);
+            $entityManager->persist($ligne);
             $entityManager->flush();
         }
 
