@@ -575,3 +575,9 @@ b
 2templates/montant_total_pour_prime/index.html.twig,2\b\2b2ec32a0e9a5af979afb027a47e8de41095a2a1
 b
 2src/Controller/MontantTotalPourPrimeController.php,c\3\c33dac5da4e468252e32204109a8a1b085327c98
+Q
+!.github/workflows/azureDeploy.yml,b\8\b8e26aa2e31a1b46fb8c0a056021fa479e558a0e
+V
+&templates/registration/index.html.twig,0\5\054407e8d0edc077f617b259fddabc52165adc35
+^
+.src/Controller/DeleteHorsForfaitController.php,8\8\88d14fb8c9c3ab2b6a0060b8fddf605c65d5f14e

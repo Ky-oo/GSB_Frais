@@ -28,6 +28,8 @@ class SaisieFicheController extends AbstractController
         FraisForfaitRepository $forfaitRepository
     ): Response
     {
+        $envoieForfaitComfirmer = false;
+        $envoieHorsForfaitComfirmer = false;
 
         $dateActuel = new \DateTime('now');
         $moisEnCours = $dateActuel->format('F Y');
@@ -37,8 +39,7 @@ class SaisieFicheController extends AbstractController
 
         $formForfait = $this->createForm(LigneFraisForfaitType::class);
         $formHorsForfait = $this->createForm(LigneFraisHorsForfaitType::class, $actualLigneHorsForfait);
-        $formForfait->handleRequest($request);
-        $formHorsForfait->handleRequest($request);
+
 
         if ($ficheMoisUser === null) {
             $actualFiche = new FicheFrais();
@@ -80,6 +81,23 @@ class SaisieFicheController extends AbstractController
             $entityManager->flush();
         }
 
+        $allLigne = $ficheMoisUser->getLigneFraisForfait();
+        foreach ($allLigne as $ligne) {
+
+            if ($ligne->getFraisForfait()->getId() == 1) {
+                $formForfait->get('quantiteKM')->setData($ligne->getQuantite());
+            } elseif ($ligne->getFraisForfait()->getId() == 2) {
+                $formForfait->get('quantiteNuitee')->setData($ligne->getQuantite());
+            } elseif ($ligne->getFraisForfait()->getId() == 3) {
+                $formForfait->get('quantiteEtape')->setData($ligne->getQuantite());
+            } else {
+                $formForfait->get('quantiteRepas')->setData($ligne->getQuantite());
+            }
+        }
+
+        $formForfait->handleRequest($request);
+        $formHorsForfait->handleRequest($request);
+
         if ($formForfait->isSubmitted() && $formForfait->isValid()) {
 
             $allLigne = $ficheMoisUser->getLigneFraisForfait();
@@ -97,6 +115,7 @@ class SaisieFicheController extends AbstractController
             }
             $entityManager->persist($ficheMoisUser);
             $entityManager->flush();
+            $envoieForfaitComfirmer = true;
         }
 
         if ($formHorsForfait->isSubmitted() && $formHorsForfait->isValid()) {
@@ -110,6 +129,8 @@ class SaisieFicheController extends AbstractController
 
             $entityManager->persist($ligne);
             $entityManager->flush();
+            $envoieHorsForfaitComfirmer = true;
+
         }
 
 
@@ -118,6 +139,9 @@ class SaisieFicheController extends AbstractController
             'actualFiche' => $ficheMoisUser,
             'formForfait' => $formForfait,
             'formHorsForfait' => $formHorsForfait,
+            'envoieForfaitComfirmer' => $envoieForfaitComfirmer,
+            'envoieHorsForfaitComfirmer' => $envoieHorsForfaitComfirmer,
+            ''
         ]);
     }
 }

@@ -11,6 +11,9 @@
                         <h1 class="card-title">Saisie Fiche (Forfait)</h1>
                         {{ form_start(formForfait, {'attr': {'class': 'form-horizontal'}}) }}
                         {{ form_end(formForfait) }}
+                        {% if envoieForfaitComfirmer %}
+                            <h2 class="text-success mx-auto">Ligne Forfait bien enregistrée</h2>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -20,9 +23,34 @@
                         <h1 class="card-title">Saisie Fiche (Hors Forfait)</h1>
                         {{ form_start(formHorsForfait, {'attr': {'class': 'form-horizontal'}}) }}
                         {{ form_end(formHorsForfait) }}
+                        {% if envoieHorsForfaitComfirmer %}
+                            <h2 class="text-success mx-auto">Ligne Hors Forfait bien enregistrée</h2>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+
+            <h2>Vos Frais Hors Forfait:</h2>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Libelle</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                    <th>Supprimer</th>
+                </tr>
+
+
+                {% for fraisHorsForfait in actualFiche.getLigneFraisHorsForfait() %}
+                    <tr>
+                        <td>{{fraisHorsForfait.getLibelle()}}</td>
+                        <td>{{fraisHorsForfait.getMontant()}} €</td>
+                        <td>{{fraisHorsForfait.getDateString()}}</td>
+                        <td><a href="{{ path('app_delete_hors_forfait', {'id': fraisHorsForfait.getId()}) }}" class="btn btn-danger">Supprimer</a></td>
+                    </tr>
+
+                {%endfor %}
+            </table>
+            <h3>Total: {{ actualFiche.montantAllFicheFraisHorsForfaitByUSer() }} €</h3>
         </div>
     </div>
 {% endblock %}

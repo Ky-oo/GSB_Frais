@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MesFichesController extends AbstractController
 {
     #[Route('/mesFiches', name: 'app_mes_fiches')]
-    public function index(Request $request, FicheFraisRepository $ficheFraisRepository, LigneFraisForfaitRepository $ligneFraisForfaitRepository): Response
+    public function index(Request $request, FicheFraisRepository $ficheFraisRepository): Response
     {
         $user = $this->getUser();
         $allFiches = $ficheFraisRepository->findBy(["user" => $user]);
