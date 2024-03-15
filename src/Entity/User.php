@@ -45,11 +45,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateEmbauche = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: FicheFrais::class, orphanRemoval: true)]
     private Collection $ficheFrais;
+
+    #[ORM\Column(length: 255)]
+    private ?string $oldId = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateEmbauche = null;
+
 
     public function __construct()
     {
@@ -186,17 +191,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateEmbauche(): ?\DateTimeInterface
-    {
-        return $this->dateEmbauche;
-    }
 
-    public function setDateEmbauche(\DateTimeInterface $dateEmbauche): static
-    {
-        $this->dateEmbauche = $dateEmbauche;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, FicheFrais>
@@ -227,4 +222,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getOldId(): ?string
+    {
+        return $this->oldId;
+    }
+
+    public function setOldId(string $oldId): static
+    {
+        $this->oldId = $oldId;
+
+        return $this;
+    }
+
+    public function getDateEmbauche(): ?\DateTimeInterface
+    {
+        return $this->dateEmbauche;
+    }
+
+    public function setDateEmbauche(\DateTimeInterface $dateEmbauche): static
+    {
+        $this->dateEmbauche = $dateEmbauche;
+
+        return $this;
+    }
+
+
 }

@@ -25,9 +25,6 @@ class FicheFrais
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $montantValid = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateModif = null;
-
     #[ORM\ManyToOne(inversedBy: 'ficheFrais')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
@@ -41,6 +38,9 @@ class FicheFrais
 
     #[ORM\OneToMany(mappedBy: 'ficheFrais', targetEntity: LigneFraisForfait::class, orphanRemoval: true)]
     private Collection $ligneFraisForfait;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateModif = null;
 
     public function __construct()
     {
@@ -85,18 +85,6 @@ class FicheFrais
     public function setMontantValid(string $montantValid): static
     {
         $this->montantValid = $montantValid;
-
-        return $this;
-    }
-
-    public function getDateModif(): ?\DateTimeInterface
-    {
-        return $this->dateModif;
-    }
-
-    public function setDateModif(\DateTimeInterface $dateModif): static
-    {
-        $this->dateModif = $dateModif;
 
         return $this;
     }
@@ -183,5 +171,56 @@ class FicheFrais
         }
 
         return $this;
+    }
+
+    public function getDateModif(): ?\DateTimeInterface
+    {
+        return $this->dateModif;
+    }
+
+    public function setDateModif(\DateTimeInterface $dateModif): static
+    {
+        $this->dateModif = $dateModif;
+
+        return $this;
+    }
+
+    public function montantAllFicheFraisByUSer(): int
+    {
+        $allLigneForfait = $this->ligneFraisForfait;
+        $allLigneForfaitByUser = new ArrayCollection();
+        $montant = 0;
+
+        foreach ($allLigneForfait as $fiche) {
+            if($fiche->getFicheFrais()->getUser()->getId() == $this->getUser()->getId()){
+                $allLigneForfaitByUser->add($fiche);
+            }
+        }
+
+        foreach ($allLigneForfaitByUser as $ligneForfaitUser){
+                $montant += $ligneForfaitUser->getQuantite() * $ligneForfaitUser->getFraisForfait()->getMontant();
+
+        }
+
+        return $montant;
+    }
+
+    public function montantAllFicheFraisHorsForfaitByUSer(): int
+    {
+        $allLigneHorsForfait = $this->getLigneFraisHorsForfait();
+        $allLigneHorsForfaitByUser = new ArrayCollection();
+        $montant = 0;
+
+        foreach ($allLigneHorsForfait as $fiche) {
+            if($fiche->getFicheFrais()->getUser()->getId() == $this->getUser()->getId()){
+                $allLigneHorsForfaitByUser->add($fiche);
+            }
+        }
+
+        foreach ($allLigneHorsForfaitByUser as $ligneHorsForfaitUser){
+            $montant += $ligneHorsForfaitUser->getMontant();
+        }
+
+        return $montant;
     }
 }

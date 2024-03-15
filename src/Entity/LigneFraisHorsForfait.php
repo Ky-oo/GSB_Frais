@@ -78,4 +78,10 @@ class LigneFraisHorsForfait
 
         return $this;
     }
+
+    public function getDateString(): string
+    {
+        $date = $this->getDate();
+        return $date->format('Y-m-d');
+    }
 }

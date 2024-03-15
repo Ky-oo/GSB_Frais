@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SaisieFicheController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Saisie Fiche (Forfait)</h1>
+                        {{ form_start(formForfait, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_end(formForfait) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Saisie Fiche (Hors Forfait)</h1>
+                        {{ form_start(formHorsForfait, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_end(formHorsForfait) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

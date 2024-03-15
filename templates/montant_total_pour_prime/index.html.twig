@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MontantTotalPourPrimeController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">Prime Inflation</h1>
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Prime (montant total): {{ prime }} €</h2>
+                        <div class="mb-3"></div>
+                        <h2 class="card-title">Montant total validé: {{ montant }} €</h2>
+                        <div class="mb-3"></div>
+                        <h2 class="card-title">Prime individuelle: {{ primeParEmployee }} €</h2>
+                        <hr>
+                        <p class="card-text">
+                            En raison de la forte inflation observée en Europe ces dernières années, la direction de GSB souhaite verser une prime « inflation » à ses visiteurs médicaux.
+                            Cette prime correspond à 9.5% des montants validés des fiches de frais en 2023 et est répartie entre tous les visiteurs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

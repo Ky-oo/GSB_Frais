@@ -42,6 +42,9 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/home, roles: ROLE_USER }
         - { path: ^/user, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/mesFiches, roles: ROLE_USER }
+        - { path: ^/ligneFraisForfait, roles: ROLE_USER }
+        - { path: ^/saisie/fiche, roles: ROLE_USER }
 when@test:
     security:
         password_hashers:
