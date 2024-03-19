@@ -21,11 +21,7 @@ class MesFichesController extends AbstractController
         $allFiches = $ficheFraisRepository->findBy(["user" => $user]);
         $form = $this->createForm(MesFichesType::class, null, ['allFiches' => $allFiches]);
         $form->handleRequest($request);
-
-
         $ficheDate = null;
-
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $totalKm = 0;

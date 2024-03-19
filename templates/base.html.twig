@@ -35,6 +35,11 @@
                         <a class="nav-link" href="/user">Users</a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_COMPTABLE') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_gestion_comptable') }}">Comptable</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
         <div class="navbar-nav ml-auto">

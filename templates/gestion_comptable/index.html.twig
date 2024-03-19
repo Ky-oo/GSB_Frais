@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GestionComptableController!{% endblock %}
+
+{% block body %}
+    <div class="card">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+
+        {% if allFicheFrais is defined %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Mois</th>
+                    <th>Etat</th>
+                    <th>Montant</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for ficheFrais in allFicheFrais %}
+                    <tr>
+                        <td>{{ ficheFrais.mois }}</td>
+                        <td>{{ ficheFrais.etat.libelle }}</td>
+                        <td>{{ ficheFrais.montantValid }}</td>
+                        <td>
+                            {{ form_start(formEtat) }}
+                            {{ form_end(formEtat) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

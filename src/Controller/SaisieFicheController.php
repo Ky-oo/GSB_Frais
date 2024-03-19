@@ -102,7 +102,6 @@ class SaisieFicheController extends AbstractController
 
             $allLigne = $ficheMoisUser->getLigneFraisForfait();
             foreach ($allLigne as $ligne) {
-
                 if ($ligne->getFraisForfait()->getId() == 1) {
                     $ligne->setQuantite($formForfait->get('quantiteKM')->getData());
                 } elseif ($ligne->getFraisForfait()->getId() == 2) {

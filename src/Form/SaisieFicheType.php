@@ -11,14 +11,7 @@ class SaisieFicheType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            //->add('mois')
-            //->add('nbJustificatifs')
-            //->add('montantValid')
-            //->add('dateModif')
-            //->add('etat')
-            //->add('user')
-        ;
+        $builder;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

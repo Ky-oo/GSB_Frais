@@ -32,7 +32,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_COMPTABLE ]
         ROLE_COMPTABLE: ROLE_USER
         ROLE_VISITEUR: ROLE_USER
 
@@ -45,6 +45,7 @@ security:
         - { path: ^/mesFiches, roles: ROLE_USER }
         - { path: ^/ligneFraisForfait, roles: ROLE_USER }
         - { path: ^/saisie/fiche, roles: ROLE_USER }
+        - { path: ^/deleteHorsForfait/, roles: ROLE_USER }
 when@test:
     security:
         password_hashers:
