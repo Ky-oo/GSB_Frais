@@ -32,23 +32,25 @@
 
             <h2>Vos Frais Hors Forfait:</h2>
             <table class="table table-bordered">
+                <thead class="text-center">
                 <tr>
                     <th>Libelle</th>
                     <th>Montant</th>
                     <th>Date</th>
                     <th>Supprimer</th>
                 </tr>
+                </thead>
 
-
+                <tbody>
                 {% for fraisHorsForfait in actualFiche.getLigneFraisHorsForfait() %}
                     <tr>
                         <td>{{fraisHorsForfait.getLibelle()}}</td>
                         <td>{{fraisHorsForfait.getMontant()}} €</td>
                         <td>{{fraisHorsForfait.getDateString()}}</td>
-                        <td><a href="{{ path('app_delete_hors_forfait', {'id': fraisHorsForfait.getId()}) }}" class="btn btn-danger">Supprimer</a></td>
+                        <td class="text-center"><a href="{{ path('app_delete_hors_forfait', {'id': fraisHorsForfait.getId()}) }}" class="btn btn-danger">Supprimer</a></td>
                     </tr>
-
                 {%endfor %}
+                </tbody>
             </table>
             <h3>Total: {{ actualFiche.montantAllFicheFraisHorsForfaitByUSer() }} €</h3>
         </div>
