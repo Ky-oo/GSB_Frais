@@ -17,10 +17,11 @@ class AllUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('user', ChoiceType::class, ['choices' => $options['allUser'],
+            ->add('selectionner', ChoiceType::class, ['choices' => $options['allUser'],
                 'choice_label'=> function(User $user) { String:
                     return $user->getNom() . " " . $user->getPrenom();
-            }])
+            },
+                'attr' => ['class' => 'form-control dropdown-toggle']])
 
             ->add('Afficher', SubmitType::class, ['attr' => ['class' => 'btn btn-primary mt-2']]);
 

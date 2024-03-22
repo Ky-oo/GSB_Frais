@@ -42,6 +42,7 @@ class MesFichesController extends AbstractController
                 }
             }
 
+
             return $this->render('mes_fiches/index.html.twig', [
                 'controller_name' => 'MesFichesController',
                 'ficheDate' => $selectedFiche,

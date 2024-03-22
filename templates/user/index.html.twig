@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>User index</h1>
+    <a href="{{ path('app_user_new') }}" class="btn btn-primary">Create new</a>
 
     <table class="table">
         <thead>
@@ -45,5 +46,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
 {% endblock %}

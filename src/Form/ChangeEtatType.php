@@ -14,12 +14,16 @@ class ChangeEtatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('etat', ChoiceType::class, ['choices' => $options['allEtat'],
-                'choice_label'=> function(Etat $etat) { String:
+            ->add('changer', ChoiceType::class, [
+                'choices' => $options['allEtat'],
+                'choice_label'=> function(Etat $etat) {
                     return $etat->getLibelle();
-            }])
-
-            ->add('Changer', SubmitType::class, ['attr' => ['class' => 'btn btn-primary mt-2']]);
+                },
+                'attr' => ['class' => 'form-control dropdown-toggle']
+            ])
+            ->add('Changer', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary mt-2 mx-auto d-block']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

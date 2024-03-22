@@ -25,7 +25,7 @@ class GestionComptableController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $selectedUser = $form->get('user')->getData();
+            $selectedUser = $form->get('selectionner')->getData();
             $allFicheFrais = $ficheFraisRepository->findBy(["user" => $selectedUser]);
             $formEtat = $this->createForm(changeEtatType::class, null, ['allEtat' => $etatRepository->findAll()]);
             $formEtat->handleRequest($request);
@@ -50,11 +50,6 @@ class GestionComptableController extends AbstractController
                 'form' => $form->createView(),
             ]);
         }
-
-
-
-
-
 
         return $this->render('gestion_comptable/index.html.twig', [
             'controller_name' => 'GestionComptableController',
