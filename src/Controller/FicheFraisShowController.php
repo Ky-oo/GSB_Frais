@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Form\ChangeEtatType;
 use App\Repository\EtatRepository;
 use App\Repository\FicheFraisRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

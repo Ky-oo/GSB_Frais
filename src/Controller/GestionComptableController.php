@@ -39,7 +39,7 @@ class GestionComptableController extends AbstractController
 
                 return $this->render('gestion_comptable/index.html.twig', [
                     'controller_name' => 'GestionComptableController',
-                    'form' => $form->createView(),
+                    'form' => $form->createView()
                 ]);
 
             }
@@ -47,7 +47,7 @@ class GestionComptableController extends AbstractController
                 'controller_name' => 'GestionComptableController',
                 'allFicheFrais' => $allFicheFrais,
                 'formEtat' => $formEtat->createView(),
-                'form' => $form->createView(),
+                'form' => $form->createView()
             ]);
         }
 

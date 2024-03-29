@@ -3,6 +3,11 @@
 {% block title %}Hello GestionComptableController!{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1>Gestion Comptable</h1>
+            <button id="showUsers" class="btn btn-primary">Show Users</button>
+            <button id="showFiches" class="btn btn-primary">Show Fiches</button>
+            <div id="showUser" class="card p-5 mt-5 rounded shadow">
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -35,4 +40,24 @@
             </table>
             </div>
         {% endif %}
+        </div>
+        <div id="showFiche" class="card p-5 mt-5 rounded shadow">
+        {% if allUsers is defined %}
+            <div class="border p-3 rounded shadow mt-3">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('showUsers').addEventListener('click', function() {
+            document.getElementById('usersCard').style.display = 'block';
+            document.getElementById('fichesCard').style.display = 'none';
+        });
+
+        document.getElementById('showFiches').addEventListener('click', function() {
+            document.getElementById('usersCard').style.display = 'none';
+            document.getElementById('fichesCard').style.display = 'block';
+        });
+    </script>
 {% endblock %}

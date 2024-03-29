@@ -14,7 +14,7 @@ class ChangeEtatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('changer', ChoiceType::class, [
+            ->add('etat', ChoiceType::class, [
                 'choices' => $options['allEtat'],
                 'choice_label'=> function(Etat $etat) {
                     return $etat->getLibelle();
