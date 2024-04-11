@@ -5,14 +5,14 @@
 {% block body %}
     <div class="container">
         <h1>Gestion Comptable</h1>
-            <button id="showUsers" class="btn btn-primary">Show Users</button>
-            <button id="showFiches" class="btn btn-primary">Show Fiches</button>
-            <div id="showUser" class="card p-5 mt-5 rounded shadow">
-
+        <a href="{{ path('app_gestion_comptable', {'view': 0})  }}"> <button id="showUsers" class="btn btn-primary">Voir par Visiteurs</button></a>
+        <a href="{{ path('app_gestion_comptable', {'view': 1})  }}"><button id="showFiches" class="btn btn-primary">Voir par Mois</button></a>
+        {% if view == 0 %}
+        <div id="showUser" class="card p-5 mt-5 rounded shadow">
+        <h2 class="text-center">Visiteurs</h2>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
-
         {% if allFicheFrais is defined %}
             <div class="border p-3 rounded shadow mt-3">
             <table class="table">
@@ -26,38 +26,75 @@
                 </thead>
                 <tbody>
 
-                {% for ficheFrais in allFicheFrais %}
+                {% if allFicheFrais is not empty %}
+                    {% for ficheFrais in allFicheFrais %}
+                        <tr>
+                            <td>{{ ficheFrais.mois }}</td>
+                            <td>{{ ficheFrais.etat.libelle }}</td>
+                            <td>{{ ficheFrais.montantValid }}</td>
+                            <td>
+                                <a href="{{ path('app_fiche_frais_show', {'id': ficheFrais.id}) }}">See More</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
                     <tr>
-                        <td>{{ ficheFrais.mois }}</td>
-                        <td>{{ ficheFrais.etat.libelle }}</td>
-                        <td>{{ ficheFrais.montantValid }}</td>
-                        <td>
-                            <a href="{{ path('app_fiche_frais_show', {'id': ficheFrais.id}) }}">See More</a>
-                        </td>
+                        <td colspan="4" class="text-center">Aucune fiche de frais pour ce visiteur</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
             </div>
         {% endif %}
         </div>
-        <div id="showFiche" class="card p-5 mt-5 rounded shadow">
-        {% if allUsers is defined %}
+        {% else %}
+        <div id="showMois" class="card p-5 mt-5 rounded shadow">
+            <h2 class="text-center">Mois</h2>
+
+            {{ form_start(formMois) }}
+            {{ form_widget(formMois) }}
+            {{ form_end(formMois) }}
+
+            {% if allFicheFraisMois is defined %}
+                {% if allFicheFraisMois is not empty %}
             <div class="border p-3 rounded shadow mt-3">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Visiteur</th>
+                        <th>Etat</th>
+                        <th>Montant</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for ficheFraisMois in allFicheFraisMois %}
+                            <tr>
+                                <td>{{ ficheFraisMois.user.prenom }} {{ ficheFraisMois.user.nom }}</td>
+                                <td>{{ ficheFraisMois.etat.libelle}}</td>
+                                <td>{{ ficheFraisMois.montantValid }}</td>
+                                <td>
+                                    <a href="{{ path('app_fiche_frais_show', {'id': ficheFraisMois.id}) }}">See More</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <h2 class="mt-5">Changer l'etat de toutes les fiches</h2>
+                {{ form_start(formEtat) }}
+                {{ form_end(formEtat) }}
+
             </div>
+                {% else %}
+                    <h2 class="text-center">Aucune fiche de frais pour ce mois</h2>
+                {% endif %}
             {% endif %}
         </div>
+    {% endif %}
     </div>
 
-    <script>
-        document.getElementById('showUsers').addEventListener('click', function() {
-            document.getElementById('usersCard').style.display = 'block';
-            document.getElementById('fichesCard').style.display = 'none';
-        });
-
-        document.getElementById('showFiches').addEventListener('click', function() {
-            document.getElementById('usersCard').style.display = 'none';
-            document.getElementById('fichesCard').style.display = 'block';
-        });
-    </script>
 {% endblock %}

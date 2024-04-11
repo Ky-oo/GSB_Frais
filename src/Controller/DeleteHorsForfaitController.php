@@ -15,7 +15,7 @@ class DeleteHorsForfaitController extends AbstractController
     {
         $fraisHorsForfait = $entityManager->getRepository(LigneFraisHorsForfait::class)->find($id);
 
-        if ($fraisHorsForfait) {
+        if ($fraisHorsForfait != null) {
             $entityManager->remove($fraisHorsForfait);
             $entityManager->flush();
         }
