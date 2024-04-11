@@ -24,6 +24,13 @@ class GestionComptableController extends AbstractController
         $view = 0;
         $formattedDate = null;
         $allFicheFraisMois = null;
+        $selectedUser = null;
+        $allFicheFrais = null;
+
+        if ($request->get('selectedUser') != null) {
+            $selectedUser = $request->get('selectedUser');
+            $allFicheFrais = $ficheFraisRepository->findBy(["user" => $selectedUser]);
+        }
 
         if ($request->get('formatedDate') != null) {
             $formattedDate = $request->get('formatedDate');
@@ -46,11 +53,10 @@ class GestionComptableController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
 
             $selectedUser = $form->get('selectionner')->getData();
-            $allFicheFrais = $ficheFraisRepository->findBy(["user" => $selectedUser]);
 
             return $this->redirectToRoute('app_gestion_comptable', [
                 'view' => $view,
-                'allFicheFrais' => $allFicheFrais,
+                'selectedUser' => $selectedUser->getId(),
             ]);
         }
 
@@ -90,6 +96,7 @@ class GestionComptableController extends AbstractController
             'view' => $view,
             'formEtat' => $formEtat->createView(),
             'allFicheFraisMois' => $allFicheFraisMois,
+            'allFicheFrais' => $allFicheFrais,
         ]);
     }
 }
