@@ -46,6 +46,7 @@ security:
         - { path: ^/ligneFraisForfait, roles: ROLE_USER }
         - { path: ^/saisie/fiche, roles: ROLE_USER }
         - { path: ^/deleteHorsForfait/, roles: ROLE_USER }
+        - { path: ^/gestion/comptable, roles: ROLE_COMPTABLE }
 when@test:
     security:
         password_hashers:
