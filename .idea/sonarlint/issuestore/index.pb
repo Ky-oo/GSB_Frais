@@ -605,3 +605,7 @@ Q
 !templates/accueil/index.html.twig,f\a\fa81ccee5ac26ace64c2fb141152557053b33e50
 F
 src/Form/MonthType.php,6\b\6b12cbfd99de9bc0b0cbce35b892d40481b04d59
+T
+$src/Controller/AccueilController.php,4\f\4fca059e6d922de719abe2b69812eb6743d3f1a3
+E
+src/Entity/.gitignore,9\9\99674f20e48f39118d61ee9aa8e229f32192f333
